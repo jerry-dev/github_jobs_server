@@ -1,24 +1,26 @@
-import childProcess from 'child_process';
+import https from 'https';
 
-export default class GetGithubJobListings {
-    async fetch() {
-        try {
-            const script = `curl --location --request GET 'https://jobs.github.com/positions.json'`;
+export default class GetGithubJobListingsService {
+    async fetchListings() {
+        const url = "https://jobs.github.com/positions.json";
 
-            const exec_options = {
-                cwd: null,
-                env: null,
-                encoding: 'utf8',
-                timeout: 0,
-                maxBuffer: 200 * 1024,
-                killSignal: 'SIGTERM'
-            };
+        return new Promise(async (resolve, reject) => {
+            let output = ``;
+            const request = await https.get(url, (response) => {
+                response.on('error', (error) => {
+                    reject(error);
+                });
 
-            childProcess.exec(script, exec_options, (error, stdout, stderror) => {
-                return stdout;
+                response.on('data', (dataChunk) => {
+                    output += dataChunk;
+                });
+    
+                response.on('end', () => {
+                    resolve(output);
+                });
             });
-        } catch (error) {
-            console.log(`Error @ services/GetGithubJobListings.js:`, error);
-        }
+
+            request.end();
+        });
     }
 }

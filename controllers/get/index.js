@@ -6,10 +6,10 @@ const githubJobListingsController = {};
 
 githubJobListingsController.getJobListings = async (req, res) => {
     try {
-        const listings = getGithubJobListingsService.fetch();
-        return res.status(200).send(listings);
+        const listings = await getGithubJobListingsService.fetchListings();
+        res.status(200).send(listings);
     } catch (error) {
-        console.log(`Error @ controllers/get/index.js`);
+        console.log(`Error @ controllers/get/index.js:`, error.message);
     }
 }
 
