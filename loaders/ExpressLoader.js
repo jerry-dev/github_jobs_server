@@ -12,6 +12,7 @@ export default class ExpressLoader {
         const app = express();
         app.use(helmet());
         app.use(cors());
+        app.options('*', cors());
         app.use(express.json());
         app.use(express.urlencoded({extended: true}));
         app.use("/", githubJobListings);

@@ -3,7 +3,7 @@ import githubJobListingsController from '../controllers/get/index.js';
 
 const router = express.Router();
 
-router.get("/", cors(), githubJobListingsController.getJobListings);
+router.get("/", githubJobListingsController.getJobListings);
 
 
 export default router;
