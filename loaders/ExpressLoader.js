@@ -5,7 +5,7 @@ import githubJobListings from '../routes/githubJobListings.js';
 
 export default class ExpressLoader {
     constructor() {
-        const port = process.env.PORT || 3000;
+        const port = process.env.PORT || 8080;
         const environment = process.env.NODE_ENV;
 
         const app = express();
